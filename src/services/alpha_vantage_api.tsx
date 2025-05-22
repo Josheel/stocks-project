@@ -1,6 +1,6 @@
 import { Stock } from '../types/Stock';
 
-const API_KEY = ' 604AJXN752G5X3LK';
+const API_KEY = import.meta.env.VITE_API_KEY;
 const BASE_URL = 'https://www.alphavantage.co/';
 
 
