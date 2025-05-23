@@ -1,12 +1,15 @@
-import { useState } from 'react';
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
+import StockDetails from './pages/StockDetails';
 
 function App() {
 
   return (
-     <Home /> 
+    <Routes>
+      <Route path="/" element={<Home/>} />
+      <Route path="/:symbol" element={<StockDetails />} />
+    </Routes>
   )
 }
 
