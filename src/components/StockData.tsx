@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { Stock } from '../types/Stock';
+import { NormalizedStock } from '../types/Stock';
 import "../css/StockResults.css";
 
 type StockDataProps = {
-  stockData: Stock[];
+  stockData: NormalizedStock[];
 };
 
 
@@ -12,12 +12,12 @@ const StockData: React.FC<StockDataProps> = ({ stockData }) => {
         <div className="stock-results">
             {stockData.map((stock) => (
                 <Link
-                    to={`/${stock['1. symbol']}`}
+                    to={`/${stock.symbol}`}
                     className="stock-result"
-                    key={stock['1. symbol']}
+                    key={stock.symbol}
                 >
                     <h3>
-                        {stock['2. name']} ({stock['1. symbol']})
+                        {stock.name} ({stock.symbol})
                     </h3>
                 </Link>
             ))}

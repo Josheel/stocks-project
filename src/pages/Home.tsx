@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Stock } from '../types/Stock';
+import { NormalizedStock } from '../types/Stock';
 import StockData from '../components/StockData';
 import SearchBar from "../components/SearchBar";
 
 function Home() {
-    const [stockData, setStockData] = useState<Stock[]>([]);
+    const [stockData, setStockData] = useState<NormalizedStock[]>([]);
     
     return (
         <div className="home">
