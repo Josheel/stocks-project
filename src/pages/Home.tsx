@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NormalizedStock } from '../types/Stock';
-import StockData from '../components/StockData';
+import StockSearchResult from '../components/StockSearchResult';
 import SearchBar from "../components/SearchBar";
 
 function Home() {
@@ -9,7 +9,7 @@ function Home() {
     return (
         <div className="home">
             <SearchBar setStockData={ setStockData }/>
-            { Object.keys(stockData).length !== 0 && <StockData stockData={stockData} /> }
+            { Object.keys(stockData).length !== 0 && <StockSearchResult stockData={stockData} /> }
         </div>
     )
 }
