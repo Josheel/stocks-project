@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { getStock } from '../services/alpha_vantage_api';
-import { Stock } from '../types/Stock';
+import { NormalizedStock } from '../types/Stock';
 
 type SearchDataProps = {
-    setStockData: React.Dispatch<React.SetStateAction<Stock[]>>;
+    setStockData: React.Dispatch<React.SetStateAction<NormalizedStock[]>>;
 };
 
 const SearchBar: React.FC<SearchDataProps> = ({ setStockData }) => {
     const [searchQuery, setSearchQuery] = useState("");
 
     const stockSearch = async (searchQuery : string) => {
-        let result: Stock[] = [];
+        let result: NormalizedStock[] = [];
         setSearchQuery(searchQuery.trim());
         if(searchQuery){
             result = await getStock(searchQuery.trim());

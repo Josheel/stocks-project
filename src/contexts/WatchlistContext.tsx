@@ -14,7 +14,6 @@ export const WatchlistProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const [watchlist, setWatchlist] = useState<Map<string, NormalizedStock>>(() => {
     try {
       const cookie = Cookies.get('watchlist');
-      console.log(document.cookie);
       const parsed = cookie ? JSON.parse(cookie) : [];
       return new Map<string, NormalizedStock>(parsed);
     } catch {
@@ -23,10 +22,8 @@ export const WatchlistProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   });
 
   useEffect(() => {
-    console.log('wathlist:', watchlist);
     const serialized = JSON.stringify(Array.from(watchlist.entries()));
     Cookies.set('watchlist', serialized, { expires: 365 });
-    console.log('set', Cookies.get('watchlist'));
   }, [watchlist]);
 
   const addToWatchlist = (stock: NormalizedStock) => {
