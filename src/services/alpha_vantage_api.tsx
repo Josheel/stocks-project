@@ -1,23 +1,65 @@
 import { NormalizedStock, normalizeStockList } from '../types/Stock';
+import { getGlobalQuote, GLOBAL_QUOTE } from '../types/GLOBAL_QUOTE'
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 const BASE_URL = 'https://www.alphavantage.co/';
 
 export async function getStock(symbol: string): Promise<NormalizedStock[]> {
-    let url: string = `${BASE_URL}/query?function=SYMBOL_SEARCH&keywords=${encodeURIComponent(symbol)}&apikey=${API_KEY}`;
-    const response = await fetch(url);
-    if (!response.ok) {
-        throw new Error('API error: ${response.status');
-    }
-    const data = await response.json();
-    return normalizeStockList(data['bestMatches']);
+    // let url: string = `${BASE_URL}/query?function=SYMBOL_SEARCH&keywords=${encodeURIComponent(symbol)}&apikey=${API_KEY}`;
+    // const response = await fetch(url);
+    // if (!response.ok) {
+    //     throw new Error('API error: ${response.status');
+    // }
+    // const data = await response.json();
+    // return normalizeStockList(data['bestMatches']);
+    return normalizeStockList(cnq);
 }
 
-export async function fetchStockOverview(symbol: string) {
-  const API_KEY = "your_api_key_here";
-  const res = await fetch(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=${symbol}&apikey=${API_KEY}`);
-  const data = await res.json();
-  return data;
+type StockDetails = {
+  Name: string;
+  Symbol: string;
+  DividendYield: string;
+  DividendPerShare: string;
+  ExDividendDate: string;
+  DividendDate: string;
+  Exchage: string;
+};
+
+export type StockOverviewResponse = {
+  Global_Quote?: GLOBAL_QUOTE;
+  Details?: StockDetails; 
+}
+
+export async function fetchStockOverview(symbol: string, context: string): Promise<StockOverviewResponse> {
+    let returnObj: StockOverviewResponse= {}
+//   const res = await fetch(`${BASE_URL}query?function=OVERVIEW&symbol=${symbol}&apikey=${API_KEY}`);
+//   const data = await res.json();
+//   return data;
+        
+    if(context === 'details') {
+        const quote: GLOBAL_QUOTE = await fetchGlobalQuote(symbol);
+        returnObj = {
+            Global_Quote : quote,
+            Details:
+            {
+                "Name" : cnqOverview['Name'],
+                "Symbol" : cnqOverview['Symbol'],
+                "DividendYield" : cnqOverview['DividendYield'],
+                "DividendPerShare" : cnqOverview['DividendPerShare'],
+                "ExDividendDate" : cnqOverview['ExDividendDate'],
+                "DividendDate" : cnqOverview['DividendDate'],
+                "Exchage" : cnqOverview['Exchange']
+            }
+        }
+    }
+
+    return returnObj;
+}
+
+export async function fetchGlobalQuote(symbol: string): Promise<GLOBAL_QUOTE> {
+    // const res = await fetch(`${BASE_URL}query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${API_KEY}`);
+    // const data = await res.json();
+    return getGlobalQuote(cnqGlobalQuote);
 }
 
 let cnq = [
@@ -121,3 +163,16 @@ let cnqOverview = {
     "DividendDate": "2025-07-03",
     "ExDividendDate": "2025-06-13"
 };
+
+let cnqGlobalQuote = {
+    "01. symbol": "CNQ",
+    "02. open": "30.7200",
+    "03. high": "31.1100",
+    "04. low": "30.6950",
+    "05. price": "31.0150",
+    "06. volume": "3719591",
+    "07. latest trading day": "2025-07-17",
+    "08. previous close": "30.9000",
+    "09. change": "0.1150",
+    "10. change percent": "0.3722%"
+}
