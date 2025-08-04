@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getStock } from '../services/alpha_vantage_api';
+import { fetchSearchResults } from "../services/StockData";
 import { NormalizedStock } from '../types/Stock';
 
 type SearchDataProps = {
@@ -13,7 +13,7 @@ const SearchBar: React.FC<SearchDataProps> = ({ setStockData }) => {
         let result: NormalizedStock[] = [];
         setSearchQuery(searchQuery.trim());
         if(searchQuery){
-            result = await getStock(searchQuery.trim());
+            result = await fetchSearchResults(searchQuery.trim());
         }
         setStockData(result);
     }
