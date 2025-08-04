@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { NormalizedStock } from '../types/Stock';
 import { GLOBAL_QUOTE } from '../types/GLOBAL_QUOTE';
 
 type StockDetails = {
@@ -17,8 +18,7 @@ export type StockDetailsResponse = {
 }
 
 export async function fetchStockOverview(symbol: string): Promise<StockDetailsResponse | null> {
-    console.log(symbol);
-    try{
+    try {
         const response = await axios.get<StockDetailsResponse>(`http://localhost:3000/api/stocks/details`, {
             params: {
                 symbol 
@@ -29,4 +29,18 @@ export async function fetchStockOverview(symbol: string): Promise<StockDetailsRe
         console.error('Error in fetchStockOverview', error);
         return null;
     }   
+}
+
+export async function fetchSearchResults(search: string): Promise<NormalizedStock[]> {
+    try {
+        const response = await axios.get<NormalizedStock[]>('http://localhost:3000/api/stocks/search', {
+            params:{
+                search
+            }
+        })
+        return response.data;
+    } catch(error) {
+        console.error('Error in fetchSearchResults', error);
+        return [];
+    }
 }

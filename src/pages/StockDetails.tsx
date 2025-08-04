@@ -9,7 +9,6 @@ const StockDetails: React.FC = () => {
   useEffect(() => {
     if (symbol) {
       fetchStockOverview(symbol).then((data) => {
-        console.log(data);
         setStockOverview(data);
       });
     }
