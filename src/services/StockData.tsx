@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { NormalizedStock } from '../types/Stock';
+import { CandleStickPoint, prepareCandleStickData, UnformattedCandleStickPoint } from '../types/TIME_SERIES'
 import { GLOBAL_QUOTE } from '../types/GLOBAL_QUOTE';
 
 type StockDetails = {
@@ -37,10 +38,25 @@ export async function fetchSearchResults(search: string): Promise<NormalizedStoc
             params:{
                 search
             }
-        })
+        });
         return response.data;
     } catch(error) {
         console.error('Error in fetchSearchResults', error);
+        return [];
+    }
+}
+
+export async function fetchTimeSeriesWeekly(symbol: string): Promise<CandleStickPoint[]> {
+    try {
+        const response = await axios.get<UnformattedCandleStickPoint[]>('http://localhost:3000/api/stocks/timeweekly', {
+            params: {
+                symbol
+            }
+        });
+
+        return prepareCandleStickData(response.data);
+    } catch(error) {
+        console.error('Error in fetchTimeSeriesWeekly', error);
         return [];
     }
 }
