@@ -1,16 +1,23 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { fetchStockOverview, StockDetailsResponse } from '../services/StockData';
+import { fetchStockOverview, StockDetailsResponse, fetchTimeSeriesWeekly } from '../services/StockData';
+import { CandleStickPoint } from '../types/TIME_SERIES';
 
 const StockDetails: React.FC = () => {
   const { symbol } = useParams<{ symbol: string }>();
   const [ stockOverview, setStockOverview] = useState<StockDetailsResponse | null>(null);
+  const [ timeSeriesWeekly, setTimeSeriesWeekly] = useState<CandleStickPoint[] | []>([]);
 
   useEffect(() => {
     if (symbol) {
       fetchStockOverview(symbol).then((data) => {
         setStockOverview(data);
       });
+      fetchTimeSeriesWeekly(symbol).then((data) => {
+        setTimeSeriesWeekly(data);
+         console.log(data);
+      })
+     
     }
   }, [symbol]);
 
