@@ -8,11 +8,17 @@ export interface CandleStickPoint {
    y: [number, number, number, number] // [open, high, low, close]
 }
 
-export function prepareCandleStickData(data: UnformattedCandleStickPoint[]): CandleStickPoint[] {
-   return data.map((point: UnformattedCandleStickPoint) => {
-      return {
-         x: new Date(point.x),
-         y: point.y
-      }
-   })
+export interface ApexCandleSeries  {
+   data: CandleStickPoint[]
+}
+
+export function prepareCandleStickData(unformattedData: UnformattedCandleStickPoint[]): { data : CandleStickPoint[] } {
+   return {
+      data :unformattedData.map((point: UnformattedCandleStickPoint) => {
+         return {
+            x: new Date(point.x),
+            y: point.y
+         }
+      })
+   }
 }
