@@ -1,12 +1,13 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { fetchStockOverview, StockDetailsResponse, fetchTimeSeriesWeekly } from '../services/StockData';
-import { CandleStickPoint } from '../types/TIME_SERIES';
+import { ApexCandleSeries } from '../types/TIME_SERIES';
+import ApexChart from '../components/ApexChart';
 
 const StockDetails: React.FC = () => {
   const { symbol } = useParams<{ symbol: string }>();
   const [ stockOverview, setStockOverview] = useState<StockDetailsResponse | null>(null);
-  const [ timeSeriesWeekly, setTimeSeriesWeekly] = useState<CandleStickPoint[] | []>([]);
+  const [ timeSeriesWeekly, setTimeSeriesWeekly] = useState<ApexCandleSeries | null>(null);
 
   useEffect(() => {
     if (symbol) {
@@ -15,7 +16,6 @@ const StockDetails: React.FC = () => {
       });
       fetchTimeSeriesWeekly(symbol).then((data) => {
         setTimeSeriesWeekly(data);
-         console.log(data);
       })
      
     }
@@ -26,7 +26,12 @@ const StockDetails: React.FC = () => {
       <h2>Stock Details</h2>
       {symbol && stockOverview && stockOverview.Details ? (
         <div className="bg-[#0f1115] text-gray-100 p-6 rounded-lg">
-          <span>{stockOverview.Details.Name} (stockOverview.Symbol)</span>
+          <span>{stockOverview.Details.Name} (stockOverview.Symbol)</span> 
+          {timeSeriesWeekly ? (           
+            <ApexChart series={timeSeriesWeekly} />
+          ) : (
+            <h1>No Data Available</h1>
+          )}
           <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-4 gap-x-8">
             <li className="flex justify-between border-b border-dashed border-gray-700 pb-1">
               <span className="text-gray-400 font-semibold">Dividend Yield:</span>
