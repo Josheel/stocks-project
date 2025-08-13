@@ -1,15 +1,12 @@
-import { ApexCandleSeries, CandleStickPoint } from "../types/TIME_SERIES";
 import Chart from 'react-apexcharts';
+import { ApexChartProps } from "../types/ApexChart";
 
-type ApexChartProps = {
-    series: ApexCandleSeries
-}
 
-const ApexChart: React.FC<ApexChartProps> = ({ series }) => {
+const ApexChart: React.FC<ApexChartProps> = ({ ApexSeriesData, chartType }) => {
 
   const options: ApexCharts.ApexOptions = {
         chart: {
-            type: 'candlestick' as const,
+            type: chartType,
             height: 350,
             background: '#0f1115',
             toolbar: {
@@ -41,13 +38,16 @@ const ApexChart: React.FC<ApexChartProps> = ({ series }) => {
             mode: 'dark' as const,
         },
     };
+
+    if(Object.prototype.hasOwnProperty.call(ApexSeriesData, chartType)) {
+        return (
+            <div>
+                <Chart options={options} series={ [ApexSeriesData[chartType as keyof typeof ApexSeriesData]] } type={chartType} height={350} />
+            </div>
+        )
+    }
     
- 
-    return (
-         <div>
-            <Chart options={options} series={ [series] } type="candlestick" height={350} />
-        </div>
-    )
+    return <div>Unsupported chart type: {chartType}</div>
 }
 
 export default ApexChart;
