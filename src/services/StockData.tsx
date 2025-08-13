@@ -10,11 +10,11 @@ type StockDetails = {
   DividendPerShare: string;
   ExDividendDate: string;
   DividendDate: string;
-  Exchage: string;
+  Exchange: string;
 };
 
 export type StockDetailsResponse = {
-    GlobalQuote: GLOBAL_QUOTE,
+    Global_Quote: GLOBAL_QUOTE,
     Details: StockDetails; 
 }
 
@@ -58,10 +58,10 @@ export async function fetchTimeSeriesWeekly(symbol: string): Promise<ApexSeries>
     } catch(error) {
         console.error('Error in fetchTimeSeriesWeekly', error);
         return {   
-            CandleSeries: {
+            candlestick: {
               data: []
            },
-           LineSeries: {
+           line: {
               data: []
            }};
     }

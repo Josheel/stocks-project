@@ -19,6 +19,8 @@ const StockDetails: React.FC = () => {
     if (symbol) {
       fetchStockOverview(symbol).then((data) => {
         setStockOverview(data);
+                console.log(data);
+
       });
       fetchTimeSeriesWeekly(symbol).then((data) => {
         setTimeSeriesWeekly(data);
@@ -57,15 +59,20 @@ const StockDetails: React.FC = () => {
             <h1>No Data Available</h1>
           )}
           <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-4 gap-x-8">
-            <li className="flex justify-between border-b border-dashed border-gray-700 pb-1">
-              <span className="text-gray-400 font-semibold">Dividend Yield:</span>
-              <span>{stockOverview.Details.DividendYield}</span>
+             <li className="flex justify-between border-b border-dashed border-gray-700 pb-1">
+              <span className="text-gray-400 font-semibold">Exchange:</span>
+              <span>
+                {stockOverview.Details.Exchange}
+              </span>
             </li>
             <li className="flex justify-between border-b border-dashed border-gray-700 pb-1">
-              <span className="text-gray-400 font-semibold">Dividend:</span>
+              <span className="text-gray-400 font-semibold">Dividend Yield:</span>
+              <span>{(parseFloat(stockOverview.Details.DividendYield) * 100).toFixed(2)}</span>
+            </li>
+            <li className="flex justify-between border-b border-dashed border-gray-700 pb-1">
+              <span className="text-gray-400 font-semibold">Dividend Amount:</span>
               <span>
-                ${stockOverview.Details.DividendPerShare} (
-                {(parseFloat(stockOverview.Details.DividendYield) * 100).toFixed(2)}%)
+                ${stockOverview.Details.DividendPerShare}
               </span>
             </li>
             <li className="flex justify-between border-b border-dashed border-gray-700 pb-1">
@@ -75,6 +82,30 @@ const StockDetails: React.FC = () => {
             <li className="flex justify-between border-b border-dashed border-gray-700 pb-1">
               <span className="text-gray-400 font-semibold">Dividend Date:</span>
               <span>{stockOverview.Details.DividendDate}</span>
+            </li>
+             <li className="flex justify-between border-b border-dashed border-gray-700 pb-1">
+              <span className="text-gray-400 font-semibold">Price:</span>
+              <span>
+                ${stockOverview.Global_Quote.price}
+              </span>
+            </li>
+             <li className="flex justify-between border-b border-dashed border-gray-700 pb-1">
+              <span className="text-gray-400 font-semibold">Open:</span>
+              <span>
+                ${stockOverview.Global_Quote.open}
+              </span>
+            </li>
+             <li className="flex justify-between border-b border-dashed border-gray-700 pb-1">
+              <span className="text-gray-400 font-semibold">Low:</span>
+              <span>
+                ${stockOverview.Global_Quote.low}
+              </span>
+            </li>
+             <li className="flex justify-between border-b border-dashed border-gray-700 pb-1">
+              <span className="text-gray-400 font-semibold">High:</span>
+              <span>
+                ${stockOverview.Global_Quote.high}
+              </span>
             </li>
           </ul>
         </div>
