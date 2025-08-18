@@ -42,7 +42,7 @@ const ApexChart: React.FC<ApexChartProps> = ({ ApexSeriesData, chartType }) => {
     if(Object.prototype.hasOwnProperty.call(ApexSeriesData, chartType)) {
         return (
             <div>
-                <Chart options={options} series={ [ApexSeriesData[chartType as keyof typeof ApexSeriesData]] } type={chartType} height={350} />
+                <Chart options={options} series={ [ApexSeriesData[chartType as keyof typeof ApexSeriesData]] } type={chartType} height={350} width={750} />
             </div>
         )
     }
