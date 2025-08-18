@@ -1,54 +1,22 @@
-# React + TypeScript + Vite
+# React + TypeScript
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The goal of this project is to make a stock watchlist that provides relevant financial information
+that someone might want to keep track of. This app will allow users to add stocks to their list
+and view desirable information relevant to investing and holding onto them. This includes things 
+like the current price, price history, and dividend information.
 
-Currently, two official plugins are available:
+Users do not need to sign up to create a watchlist, they will be able to create a list of 10 stocks
+to track. Now, I would like to add advanced customization, additional, and longer lists. Features
+available for only registered users. This means, how can a user create a list unique to them and 
+view it once they have closed the browser?
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Well, I serialize the list and store it onto a cookie. This is why I cap the list at 10. This is 
+the only way to allow users to not have to register and maintain a watchlist.
 
-## Expanding the ESLint configuration
+I would like to add a database, and allow users to create a longer list, or multiple list. This would
+require users to sign up. At this point I would also need to impelent auth, and I have not reached that
+point yet. I would like to create some base functionality first. Also, I am studying the code itself.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Furthermore, I am limited to the number of requests I can make by the Alpha Vantage API. This makes it
+difficult to have an in production example without subscribing to Alpha Vantage. 
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
