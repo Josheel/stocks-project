@@ -3,6 +3,8 @@ import { NormalizedStock } from '../types/Stock';
 import { ApexSeries, prepareApexSeriesData, UnformattedSeriesData } from '../types/TIME_SERIES'
 import { GLOBAL_QUOTE } from '../types/GLOBAL_QUOTE';
 
+const API_BASE = import.meta.env.VITE_API_BASE;
+
 type StockDetails = {
   Name: string;
   Symbol: string;
@@ -20,7 +22,7 @@ export type StockDetailsResponse = {
 
 export async function fetchStockOverview(symbol: string): Promise<StockDetailsResponse | null> {
     try {
-        const response = await axios.get<StockDetailsResponse>(`http://localhost:3000/api/stocks/details`, {
+        const response = await axios.get<StockDetailsResponse>(`${API_BASE}/stocks/details`, {
             params: {
                 symbol 
             }
@@ -34,7 +36,7 @@ export async function fetchStockOverview(symbol: string): Promise<StockDetailsRe
 
 export async function fetchSearchResults(search: string): Promise<NormalizedStock[]> {
     try {
-        const response = await axios.get<NormalizedStock[]>('http://localhost:3000/api/stocks/search', {
+        const response = await axios.get<NormalizedStock[]>(`${API_BASE}/stocks/search`, {
             params:{
                 search
             }
@@ -48,7 +50,7 @@ export async function fetchSearchResults(search: string): Promise<NormalizedStoc
 
 export async function fetchTimeSeriesWeekly(symbol: string): Promise<ApexSeries> {
     try {
-        const response = await axios.get<UnformattedSeriesData>('http://localhost:3000/api/stocks/timeweekly', {
+        const response = await axios.get<UnformattedSeriesData>(`${API_BASE}/stocks/timeweekly`, {
             params: {
                 symbol
             }
