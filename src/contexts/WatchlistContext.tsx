@@ -17,7 +17,7 @@ export const WatchlistProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       const parsed = cookie ? JSON.parse(cookie) : [];
       return new Map<string, NormalizedStock>(parsed);
     } catch {
-      return new Map<string, NormalizedStock>;
+      return new Map<string, NormalizedStock>();
     }
   });
 
@@ -28,7 +28,7 @@ export const WatchlistProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
   const addToWatchlist = (stock: NormalizedStock) => {
     setWatchlist((prev) => {
-      if (prev.has(stock.name) || prev.size >= 10) {
+      if (prev.has(stock.symbol) || prev.size >= 10) {
         return prev; // No change needed
       }
 
