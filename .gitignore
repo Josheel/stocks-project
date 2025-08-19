@@ -25,4 +25,4 @@ dist-ssr
 .env
 .flowbite-react/config.json
 .vscode/extensions.json
-stc/pages/Test.tsx
+src/pages/Test.tsx
