@@ -3,6 +3,7 @@ import { NormalizedStock } from '../types/Stock';
 import StockSearchResult from '../components/StockSearchResult';
 import SearchBar from "../components/SearchBar";
 import { useWatchlist } from '../contexts/WatchlistContext';
+import { Link } from 'react-router-dom';
 
 
 function Home() {
@@ -25,13 +26,16 @@ function Home() {
                     <ul className="space-y-2">
                     {stocks.map((stock) => (
                         <li key={stock.symbol} className="flex items-center justify-between">
-                        <span>{stock.symbol} — {stock.name}</span>
-                        <button
-                            className="text-red-500 hover:underline"
-                            onClick={() => removeFromWatchlist(stock)}
-                        >
-                            Remove
-                        </button>
+                           <Link to={`/stocks/${stock.symbol}`} className="hover:underline">
+                                {stock.symbol} — {stock.name}
+                            </Link>
+
+                            <button
+                                className="text-red-500 hover:underline"
+                                onClick={() => removeFromWatchlist(stock)}
+                            >
+                                Remove
+                            </button>
                         </li>
                     ))}
                     </ul>
