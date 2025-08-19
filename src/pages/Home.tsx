@@ -42,3 +42,17 @@ function Home() {
 }
 
 export default Home;
+
+
+// Note related to nginx config and caching issue causing infinite redirects on the home page
+// # Never cache index.html (because Vite injects hashed JS files dynamically)
+// location = /index.html {
+//     add_header Cache-Control "no-cache, no-store, must-revalidate";
+//     try_files $uri =404;
+// }
+
+// # Cache static assets with far-future expiry (Vite uses content-hashed filenames)
+// location ~* \.(js|css|png|jpg|jpeg|gif|svg|ico|woff2?)$ {
+//     add_header Cache-Control "public, max-age=31536000, immutable";
+//     try_files $uri =404;
+// }
