@@ -26,7 +26,7 @@ function Home() {
                     <ul className="space-y-2">
                     {stocks.map((stock) => (
                         <li key={stock.symbol} className="flex items-center justify-between">
-                           <Link to={`/stocks/${stock.symbol}`} className="hover:underline">
+                           <Link to={`/${stock.symbol}`} className="hover:underline">
                                 {stock.symbol} — {stock.name}
                             </Link>
 
